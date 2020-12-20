@@ -1,5 +1,5 @@
 -c requirements.txt
-numpy
+numpy==1.19.3 # To avoid sanity bug on Windows 2004/H2
 pandas
 scikit-learn
 seaborn
