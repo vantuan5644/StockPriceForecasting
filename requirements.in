@@ -6,6 +6,8 @@ seaborn
 plotly
 xgboost
 lightgbm
-beautifulsoup4
-scrapy
+# beautifulsoup4
+# scrapy
 jupyterlab
+fbprophet
+sktime
