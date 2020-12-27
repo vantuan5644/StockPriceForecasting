@@ -1,0 +1,5 @@
+1. show stock price chart of FPT with old data and model
+2. create table of stock code on dashboard
+3. write scront-tab to auto crawl new csv of all stock code
+4. retrain model with new data
+5. enable user to select what stock code they want to see 

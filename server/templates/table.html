@@ -1,0 +1,28 @@
+<style>
+    .company-name{
+        font-size: 12px!important;
+    }
+</style>
+
+<table class="table">
+    <thead class="thead-dark" style="background-color: #212529">
+      <tr>
+        <th scope="col" style="color: white;">#</th>
+        <th scope="col" style="color: white;">Mã CP</th>
+        <th scope="col" style="color: white;">Tên công ty</th>
+        <th scope="col" style="color: white;">Lần cuối cập nhật mô hình</th>
+        <th scope="col" style="color: white;">Xem dự báo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for (index, code, companyName) in companies %}
+        <tr>
+            <th scope="row">{{index}}</th>
+            <td>{{code}}</td>
+            <td class="company-name">{{companyName}}</td>
+            <td>23/12/2020 5:4:32</td>
+            <td><button type="button" class="btn btn-info btn-sm">Dự báo</button></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
