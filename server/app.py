@@ -14,6 +14,8 @@ app = Flask(APP_NAME, template_folder="templates", static_folder="static", stati
 def home():
      return dashboard()
 
+
+
 @app.route("/getPredict/<stockCode>/<method>", methods=["GET"])
 def predict(stockCode, method):
     return predict_stock_price(stockCode, method)

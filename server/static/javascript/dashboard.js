@@ -1,14 +1,26 @@
 timeSeriesChart = null 
+firstRun = true
 
 $(document).ready(function() {
-    fetch("/getOldPrices/FPT")
+    plotChartofStockCode()
+});
+
+$(".change-stock-code").click(function(evt){
+    buttonEle = evt.target
+    stockCode = buttonEle.getAttribute("name")
+    plotChartofStockCode(stockCode)
+    document.getElementById("company-name").innerHTML = stockCode
+})
+
+function plotChartofStockCode(stockCode="FPT", method="prophet"){
+    fetch("/getOldPrices/" + stockCode)
         .then(response => response.json())
         .then(jsonData => {
             console.log(jsonData)
             timeSeries = parseTimeFromResponse(jsonData)
             priceSeries = parsePriceFromResponse(jsonData)
 
-            fetch("getPredict/FPT/prophet")
+            fetch(`getPredict/${stockCode}/${method}`)
                 .then(response => response.json())
                 .then(jsonData => {
                     timeSeriesPredict = parseTimeFromResponse(jsonData)
@@ -19,9 +31,7 @@ $(document).ready(function() {
 
         })
         .catch(error => console.debug(error))
-        
-    
-});
+}
 
 function getCurrentTime(){
     return moment().format('MMMM Do YYYY, h:mm:ss a')
@@ -43,11 +53,9 @@ function parsePriceFromResponse(jsonPrices){
 
 function plotStockPriceLineChart(chartId, dates, prices, datesPredict, pricesPredict){
     am4core.ready(function() {
-
+        document.getElementById(chartId).innerHTML = null
         am4core.useTheme(am4themes_animated);
-        if (!timeSeriesChart){
-            timeSeriesChart = am4core.create(chartId, am4charts.XYChart);
-        }
+        timeSeriesChart = am4core.create(chartId, am4charts.XYChart);
         
         let data = [];
         dates.forEach((date, index) => {
@@ -65,7 +73,6 @@ function plotStockPriceLineChart(chartId, dates, prices, datesPredict, pricesPre
         let dateAxis = timeSeriesChart.xAxes.push(new am4charts.DateAxis());
         dateAxis.renderer.minGridDistance = 60;
         dateAxis.title.text = "Thời gian"
-        
         let valueAxis = timeSeriesChart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.title.text = "Giá trị (Đơn vị: Nghìn VNĐ)"
         
@@ -94,8 +101,8 @@ function plotStockPriceLineChart(chartId, dates, prices, datesPredict, pricesPre
         timeSeriesChart.cursor.xAxis = dateAxis;
         
         // chart.scrollbarY = new am4core.Scrollbar();
-        timeSeriesChart.scrollbarX = new am4core.Scrollbar();
-        
+        timeSeriesChart.scrollbarX = new am4core.Scrollbar(); 
+        firstRun = false
         });    
 }
 
