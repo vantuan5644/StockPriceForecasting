@@ -1,13 +1,17 @@
 -c requirements.txt
-numpy==1.19.3 # To avoid sanity bug on Windows 2004/H2
+# numpy==1.19.3 # To avoid sanity bug on Windows 2004/H2
+numpy
 pandas
 scikit-learn
 seaborn
 plotly
 xgboost
 lightgbm
-# beautifulsoup4
-# scrapy
+beautifulsoup4
+scrapy
 jupyterlab
 fbprophet
 sktime
+keras
+tensorflow
+flask

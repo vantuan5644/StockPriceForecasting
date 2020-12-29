@@ -1,5 +1,3 @@
-import pickle
-import os
 import json
 import pandas as pd 
 import numpy as np
@@ -39,7 +37,8 @@ class ProphetModel:
         df_predict = self.prophet_model.predict(future_need_predict)
         predict_dict = []
         for i in range(len(df_predict)):
-            predict_dict.append({"price": df_predict.loc[i, "yhat"], "time": df_predict.loc[i, "ds"].strftime("%d/%m/%Y %H:%M:%S")})
+            predict_dict.append(
+                {"price": df_predict.loc[i, "yhat"], "time": df_predict.loc[i, "ds"].strftime("%d/%m/%Y %H:%M:%S")})
         return json.dumps(predict_dict)
 
     @staticmethod
